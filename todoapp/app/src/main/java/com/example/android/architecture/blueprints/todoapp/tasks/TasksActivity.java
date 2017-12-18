@@ -34,7 +34,7 @@ import com.example.android.architecture.blueprints.todoapp.statistics.Statistics
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource;
 
-public class TasksActivity extends AppCompatActivity {
+public class TasksActivity extends AppCompatActivity { //AppCompatActivity extends FragmentActivity
 
     private static final String CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY";
 
@@ -47,31 +47,32 @@ public class TasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks_act);
 
-        // Set up the toolbar.
+
+        // Set up the toolbar. 工具栏。
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
+        setSupportActionBar(toolbar);//AppCompatActivity自带方法
+        ActionBar ab = getSupportActionBar();//上面Set完这里Get，不就是Toolbar
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        // Set up the navigation drawer.
+        // Set up the navigation drawer.左侧滑出的菜单。
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
-            setupDrawerContent(navigationView);
+            setupDrawerContent(navigationView);//自己实现，设置回调函数。
         }
 
+        // Create the TasksFragment.
         TasksFragment tasksFragment =
                 (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (tasksFragment == null) {
-            // Create the fragment
             tasksFragment = TasksFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), tasksFragment, R.id.contentFrame);
         }
 
-        // Create the presenter
+        // Create the presenter    Injection提供TasksRepository
         mTasksPresenter = new TasksPresenter(
                 Injection.provideTasksRepository(getApplicationContext()), tasksFragment);
 
@@ -79,7 +80,7 @@ public class TasksActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             TasksFilterType currentFiltering =
                     (TasksFilterType) savedInstanceState.getSerializable(CURRENT_FILTERING_KEY);
-            mTasksPresenter.setFiltering(currentFiltering);
+            mTasksPresenter.setFiltering(currentFiltering);//Filter 用来过滤todo的类型，Active/Completed
         }
     }
 

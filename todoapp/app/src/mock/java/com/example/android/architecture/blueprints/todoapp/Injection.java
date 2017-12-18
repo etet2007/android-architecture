@@ -37,9 +37,11 @@ public class Injection {
 
     public static TasksRepository provideTasksRepository(@NonNull Context context) {
         checkNotNull(context);
-        ToDoDatabase database = ToDoDatabase.getInstance(context);
-        return TasksRepository.getInstance(FakeTasksRemoteDataSource.getInstance(),
-                TasksLocalDataSource.getInstance(new AppExecutors(),
-                        database.taskDao()));
+        ToDoDatabase database = ToDoDatabase.getInstance(context);//使用Room的库来实现database
+        //参数分别是 tasksRemoteDataSource     tasksLocalDataSource
+        return TasksRepository.getInstance(
+                FakeTasksRemoteDataSource.getInstance(),
+                TasksLocalDataSource.getInstance(new AppExecutors(),database.taskDao())
+        );
     }
 }

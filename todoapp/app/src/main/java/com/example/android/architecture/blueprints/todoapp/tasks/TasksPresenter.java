@@ -36,9 +36,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class TasksPresenter implements TasksContract.Presenter {
 
-    private final TasksRepository mTasksRepository;
+    private final TasksRepository mTasksRepository; // 数据层
 
-    private final TasksContract.View mTasksView;
+    private final TasksContract.View mTasksView;    // fragment实现此接口
 
     private TasksFilterType mCurrentFiltering = TasksFilterType.ALL_TASKS;
 
@@ -48,13 +48,13 @@ public class TasksPresenter implements TasksContract.Presenter {
         mTasksRepository = checkNotNull(tasksRepository, "tasksRepository cannot be null");
         mTasksView = checkNotNull(tasksView, "tasksView cannot be null!");
 
-        mTasksView.setPresenter(this);
+        mTasksView.setPresenter(this);  //为mTasksView设置Presenter
     }
 
     @Override
     public void start() {
         loadTasks(false);
-    }
+    }//presenter开始加载数据
 
     @Override
     public void result(int requestCode, int resultCode) {
@@ -77,7 +77,7 @@ public class TasksPresenter implements TasksContract.Presenter {
      */
     private void loadTasks(boolean forceUpdate, final boolean showLoadingUI) {
         if (showLoadingUI) {
-            mTasksView.setLoadingIndicator(true);
+            mTasksView.setLoadingIndicator(true); //showLoadingUI
         }
         if (forceUpdate) {
             mTasksRepository.refreshTasks();

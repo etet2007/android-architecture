@@ -54,7 +54,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class TasksFragment extends Fragment implements TasksContract.View {
 
-    private TasksContract.Presenter mPresenter;
+    private TasksContract.Presenter mPresenter; //持有Presenter
 
     private TasksAdapter mListAdapter;
 
@@ -87,7 +87,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        mPresenter.start(); //presenter开始获取数据并调用view中方法改变界面显示
     }
 
     @Override

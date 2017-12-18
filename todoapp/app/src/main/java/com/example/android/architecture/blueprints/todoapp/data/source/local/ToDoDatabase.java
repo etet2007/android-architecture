@@ -25,6 +25,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task;
 
 /**
  * The Room Database that contains the Task table.
+ * Room Persistence Library
  */
 @Database(entities = {Task.class}, version = 1)
 public abstract class ToDoDatabase extends RoomDatabase {

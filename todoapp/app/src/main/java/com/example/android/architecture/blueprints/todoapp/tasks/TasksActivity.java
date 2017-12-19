@@ -63,7 +63,7 @@ public class TasksActivity extends AppCompatActivity { //AppCompatActivity exten
             setupDrawerContent(navigationView);//自己实现，设置回调函数。
         }
 
-        // Create the TasksFragment.
+        // Create the TasksFragment.            VIEW
         TasksFragment tasksFragment =
                 (TasksFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (tasksFragment == null) {
@@ -72,7 +72,7 @@ public class TasksActivity extends AppCompatActivity { //AppCompatActivity exten
                     getSupportFragmentManager(), tasksFragment, R.id.contentFrame);
         }
 
-        // Create the presenter    Injection提供TasksRepository
+        // Create the presenter PRESENTER     Injection提供TasksRepository(MODEL)
         mTasksPresenter = new TasksPresenter(
                 Injection.provideTasksRepository(getApplicationContext()), tasksFragment);
 

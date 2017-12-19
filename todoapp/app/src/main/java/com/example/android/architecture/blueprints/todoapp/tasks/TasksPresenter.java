@@ -54,7 +54,7 @@ public class TasksPresenter implements TasksContract.Presenter {
     @Override
     public void start() {
         loadTasks(false);
-    }//presenter开始加载数据
+    }//* presenter开始加载数据
 
     @Override
     public void result(int requestCode, int resultCode) {
@@ -87,6 +87,7 @@ public class TasksPresenter implements TasksContract.Presenter {
         // that the app is busy until the response is handled.
         EspressoIdlingResource.increment(); // App is busy until further notice
 
+        // 具体怎么获取数据就交给了TasksRepository ，不理是从网络、本地还是缓存。
         mTasksRepository.getTasks(new TasksDataSource.LoadTasksCallback() {
             @Override
             public void onTasksLoaded(List<Task> tasks) {

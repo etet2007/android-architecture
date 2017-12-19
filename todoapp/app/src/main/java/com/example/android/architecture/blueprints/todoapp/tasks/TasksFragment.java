@@ -54,7 +54,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class TasksFragment extends Fragment implements TasksContract.View {
 
-    private TasksContract.Presenter mPresenter; //持有Presenter
+    private TasksContract.Presenter mPresenter; //持有Presenter，所有的操作都通过Presenter
 
     private TasksAdapter mListAdapter;
 
@@ -81,6 +81,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 初始化TasksAdapter，adapter的具体实现都放在了TasksAdapter类中
         mListAdapter = new TasksAdapter(new ArrayList<Task>(0), mItemListener);
     }
 
@@ -104,7 +105,7 @@ public class TasksFragment extends Fragment implements TasksContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.tasks_frag, container, false);
+        View root = inflater.inflate(R.layout.tasks_frag, container, false);//fragment 的布局在tasks_frag
 
         // Set up tasks view
         ListView listView = (ListView) root.findViewById(R.id.tasks_list);
